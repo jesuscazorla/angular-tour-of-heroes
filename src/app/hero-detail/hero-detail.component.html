@@ -5,18 +5,35 @@
     <label for="hero-name">Hero name: </label>
     <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
 
+
   </div>
+  <div>
   <h2>SUPER POWERS</h2>
   <ul>
-    <li *ngFor="let super in hero.superpowers">
-      {{super}}
+    <li *ngFor="let super of hero.superpowers">
+      <div>
+        {{super}}
+        <button type="button" id="deleteButton" (click)="deleteSuperpower(super)">Delete</button>
+      </div>
+
     </li>
   </ul>
-  <mat-selection-list #superpowers *ngIf="show" (selectionChange)="onSelection($event,superpowers.selectedOptions, hero)">
-    <mat-list-option *ngFor="let superpower of typesofSuperpowers" [value]="superpower">
-      {{superpower}}
-    </mat-list-option>
-  </mat-selection-list>
-  <button type="button" (click)="showList()">{{buttonName}}</button>
+  <button type="button" (click)="showAddSuperpower()">{{buttonName}}</button>
+  <div *ngIf="show" id="buttonAdd">
+    <form>
+      <div>
+         <label for="superpower">Super Power:</label>
+         <input type="text" id="superpower" placeholder="Super Power">
+         <button type="button" (click)="addSuperpower()">Add Super Power</button>
+    </div>
+    <label *ngIf="error" id="error">This superpower already exists</label>
+      </form>
+
+  </div>
+  </div>
+
+
   <button type="button" (click)="goBack()">Go Back</button>
 </div>
+
+

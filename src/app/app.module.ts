@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { HeroSuperpowersComponent } from './hero-superpowers/hero-superpowers.component';
 import {MatListModule} from '@angular/material/list';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatNativeDateModule} from '@angular/material/core';
@@ -22,7 +21,6 @@ import {HttpClientModule} from '@angular/common/http';
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSuperpowersComponent,
 
   ],
   imports: [

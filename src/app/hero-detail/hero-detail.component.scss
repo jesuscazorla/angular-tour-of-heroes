@@ -22,3 +22,33 @@ button:disabled {
   color: #ccc;
   cursor: auto;
 }
+
+#deleteButton{
+  margin-left: 2rem;
+  background-color: #eee;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: red;
+}
+
+ul li{
+  align-items: center;
+}
+
+#buttonAdd{
+  align-items: center;
+}
+#superpower{
+  color: black;
+  font-weight: bold;
+}
+form label{
+  margin-right: 1.5em;
+}
+
+form input{
+  margin-right: 1.5em;
+}
+

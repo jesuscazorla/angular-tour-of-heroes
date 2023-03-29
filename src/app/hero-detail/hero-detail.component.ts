@@ -13,12 +13,15 @@ import { HeroService } from '../hero.service';
 })
 export class HeroDetailComponent {
   @Input() hero?: Hero;
+
   public show: boolean = false;
-  public buttonName: string = "Add/Modify Super Powers"
+  public error: boolean = false;
+  public buttonName: string = "Add new Super Power"
   constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location){}
 
   ngOnInit(): void{
     this.getHero();
+
   }
   getHero(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -30,30 +33,33 @@ export class HeroDetailComponent {
     this.location.back();
   }
 
-  typesofSuperpowers: string[] = ['Fly', 'Invulnerability', 'Strength', 'Invisibility', 'Teleportation', 'Shapeshifting'];
 
-  showList(): void {
-    this.show = !this.show;
+    showAddSuperpower(): void{
+      this.show = !this.show;
 
-    // Change the name of the button.
-    if(this.show)
-      this.buttonName = "Close list";
-    else
-      this.buttonName = "Add/Modify Super Powers";
-  }
-
-  onSelection(e: any,v: any, hero: Hero){
-    var current_selected = e.option.value;
-    this.changeSuperPower(current_selected, hero);
-  }
-
-  changeSuperPower(selected: any, hero: Hero): void{
-      var index = hero.superpowers.findIndex(selected);
-      if(index > -1){
-        hero.superpowers.splice(index, hero.superpowers.length-index-1);
+      if(this.show){
+        this.buttonName = "Close Add Menu";
+      }else
+        this.buttonName = "Add new Super Power";
+    }
+    addSuperpower(): void{
+      var input = document.getElementById("superpower") as HTMLInputElement;
+      var newsuperp = input.value;
+      if(newsuperp.length > 0){
+      if(!this.hero?.superpowers.includes(newsuperp)){
+        this.hero?.superpowers.push(newsuperp);
+        this.error = false;
       }else{
-        hero.superpowers.push(selected);
+        this.error= true;
       }
     }
+
+    }
+    deleteSuperpower(superp: string): void {
+      var index = this.hero?.superpowers.indexOf(superp)
+      if(typeof index !== 'undefined' && index > -1){
+        this.hero?.superpowers.splice(index, 1);
+    }
   }
+}
 
