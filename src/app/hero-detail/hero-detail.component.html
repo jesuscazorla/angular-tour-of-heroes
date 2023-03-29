@@ -6,5 +6,17 @@
     <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
 
   </div>
+  <h2>SUPER POWERS</h2>
+  <ul>
+    <li *ngFor="let super in hero.superpowers">
+      {{super}}
+    </li>
+  </ul>
+  <mat-selection-list #superpowers *ngIf="show" (selectionChange)="onSelection($event,superpowers.selectedOptions, hero)">
+    <mat-list-option *ngFor="let superpower of typesofSuperpowers" [value]="superpower">
+      {{superpower}}
+    </mat-list-option>
+  </mat-selection-list>
+  <button type="button" (click)="showList()">{{buttonName}}</button>
   <button type="button" (click)="goBack()">Go Back</button>
 </div>

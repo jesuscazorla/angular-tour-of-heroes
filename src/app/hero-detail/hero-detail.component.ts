@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { HeroService } from '../hero.service';
 
 
+
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
@@ -12,6 +13,8 @@ import { HeroService } from '../hero.service';
 })
 export class HeroDetailComponent {
   @Input() hero?: Hero;
+  public show: boolean = false;
+  public buttonName: string = "Add/Modify Super Powers"
   constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location){}
 
   ngOnInit(): void{
@@ -27,4 +30,30 @@ export class HeroDetailComponent {
     this.location.back();
   }
 
-}
+  typesofSuperpowers: string[] = ['Fly', 'Invulnerability', 'Strength', 'Invisibility', 'Teleportation', 'Shapeshifting'];
+
+  showList(): void {
+    this.show = !this.show;
+
+    // Change the name of the button.
+    if(this.show)
+      this.buttonName = "Close list";
+    else
+      this.buttonName = "Add/Modify Super Powers";
+  }
+
+  onSelection(e: any,v: any, hero: Hero){
+    var current_selected = e.option.value;
+    this.changeSuperPower(current_selected, hero);
+  }
+
+  changeSuperPower(selected: any, hero: Hero): void{
+      var index = hero.superpowers.findIndex(selected);
+      if(index > -1){
+        hero.superpowers.splice(index, hero.superpowers.length-index-1);
+      }else{
+        hero.superpowers.push(selected);
+      }
+    }
+  }
+
