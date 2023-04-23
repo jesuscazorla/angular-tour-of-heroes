@@ -15,6 +15,7 @@ import { map, of } from 'rxjs';
 export class HeroDetailComponent {
   @Input() hero?: Hero;
 
+  public imgSrc: string = ""
   public show: boolean = false;
   public error: boolean = false;
   public buttonName: string = "Add new Super Power"
@@ -32,7 +33,17 @@ export class HeroDetailComponent {
           hero.superpowers[index] = aux.pop()! ;
         }
         this.hero = hero
+        this.getImage(this.hero.name);
+
       })
+
+    }
+
+  getImage(name: string): void{
+    this.heroService.apiImages(name).subscribe(
+      src => this.imgSrc = src
+    )
+
 
   }
 
@@ -43,9 +54,6 @@ export class HeroDetailComponent {
 
     showAddSuperpower(): void{
       this.show = !this.show;
-
-
-
       if(this.show){
         this.buttonName = "Close Add Menu";
       }else

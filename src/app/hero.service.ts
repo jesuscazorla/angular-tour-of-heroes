@@ -98,6 +98,21 @@ searchHeroes(term: string): Observable<Hero[]> {
   );
 }
 
+  apiImages(name : string): Observable<string>{
+    //this.http.get<any>(`https://gateway.marvel.com/v1/public/characters?nameStartsWith=${name}&ts=1000&apikey=5ee1aa5c2cf3a1c93efc8771ea1a52ee&hash=7c9f66a78fcdc34e6cdfb047b32dc505`).subscribe(a => console.log(a.data.results[0].thumbnail.path+"."+a.data.results[0].thumbnail.extension));
+    return this.http.get<any>(`https://gateway.marvel.com/v1/public/characters?nameStartsWith=${name}&ts=1000&apikey=5ee1aa5c2cf3a1c93efc8771ea1a52ee&hash=7c9f66a78fcdc34e6cdfb047b32dc505`).pipe(
+      map(result => result.data.results[0].thumbnail.path+"."+result.data.results[0].thumbnail.extension)
+    )
+
+
+
+
+  }
+
+//HASH MD5 API MARVEL
+//http://gateway.marvel.com/v1/public/comics?ts=1000&apikey=5ee1aa5c2cf3a1c93efc8771ea1a52ee&hash=7c9f66a78fcdc34e6cdfb047b32dc505
+//7c9f66a78fcdc34e6cdfb047b32dc505
+
 
 
 }
