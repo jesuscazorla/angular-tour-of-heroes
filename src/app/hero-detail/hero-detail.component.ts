@@ -3,6 +3,7 @@ import { Hero } from '../hero';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { HeroService } from '../hero.service';
+import { map, of } from 'rxjs';
 
 
 
@@ -21,12 +22,18 @@ export class HeroDetailComponent {
 
   ngOnInit(): void{
     this.getHero();
-
   }
+
   getHero(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
+    this.heroService.getHero(id).subscribe((hero) => {
+        for (let index in hero.superpowers){
+          let aux = Object.values(hero.superpowers[index])
+          hero.superpowers[index] = aux.pop()! ;
+        }
+        this.hero = hero
+      })
+
   }
 
   goBack(): void {
@@ -36,6 +43,8 @@ export class HeroDetailComponent {
 
     showAddSuperpower(): void{
       this.show = !this.show;
+
+
 
       if(this.show){
         this.buttonName = "Close Add Menu";
@@ -59,6 +68,13 @@ export class HeroDetailComponent {
       var index = this.hero?.superpowers.indexOf(superp)
       if(typeof index !== 'undefined' && index > -1){
         this.hero?.superpowers.splice(index, 1);
+    }
+  }
+
+  save(): void {
+    if (this.hero) {
+      this.heroService.updateHero(this.hero)
+        .subscribe(() => this.goBack());
     }
   }
 }
