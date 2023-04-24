@@ -88,7 +88,7 @@ searchHeroes(term: string): Observable<Hero[]> {
   }
 
 
-  return this.http.get<any>(`${this.heroesURL}?name=${term}`).pipe(
+  return this.http.get<any>(`${this.heroesURL}/search/findByNameContainingIgnoreCase?name=${term}`).pipe(
     map(a => a._embedded.heroes),
     tap(x => x.length ?
        this.log(`found heroes matching "${term}"`) :
